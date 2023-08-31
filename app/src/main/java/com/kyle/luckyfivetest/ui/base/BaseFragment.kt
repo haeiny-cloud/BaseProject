@@ -21,6 +21,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragmen
     abstract val layoutResId: Int
     abstract val viewModel: VM
     abstract val menuProvider: MenuProvider?
+    abstract val fragment: String
 
     private var mActivity: MainActivity? = null
 
@@ -28,7 +29,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragmen
         super.onAttach(context)
         if (context is MainActivity) {
             mActivity = context
-            mActivity?.onFragmentAttached()
+            mActivity?.onFragmentAttached(fragment)
         }
     }
 
@@ -56,12 +57,14 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragmen
     }
 
     override fun onDetach() {
+        mActivity?.onFragmentDetached(fragment)
         mActivity = null
         super.onDetach()
     }
 
     interface CallBack {
-        fun onFragmentAttached()
-        fun onFragmentDetached(tag: String)
+        fun onFragmentAttached(fragment: String)
+        fun onFragmentDetached(fragment: String)
+        fun setChangeFragment(fragment: Fragment)
     }
 }

@@ -2,7 +2,9 @@ package com.kyle.luckyfivetest.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.kyle.luckyfivetest.R
 import com.kyle.luckyfivetest.databinding.ActivityMainBinding
 import com.kyle.luckyfivetest.ui.base.BaseFragment
@@ -26,11 +28,18 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack {
         fragmentTransaction.commit()
     }
 
-    override fun onFragmentAttached() {
-
+    override fun onFragmentAttached(fragment: String) {
+        Log.d("TAG", "$fragment is attached")
     }
 
-    override fun onFragmentDetached(tag: String) {
+    override fun onFragmentDetached(fragment: String) {
+        Log.d("TAG", "$fragment is Detached")
+    }
 
+    override fun setChangeFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.commit()
     }
 }
