@@ -1,0 +1,67 @@
+package com.kyle.luckyfivetest.ui.base
+
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import com.kyle.luckyfivetest.BR
+import com.kyle.luckyfivetest.ui.MainActivity
+
+abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragment() {
+
+    protected lateinit var mViewDataBinding: B
+
+    abstract val layoutResId: Int
+    abstract val viewModel: VM
+    abstract val menuProvider: MenuProvider?
+
+    private var mActivity: MainActivity? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is MainActivity) {
+            mActivity = context
+            mActivity?.onFragmentAttached()
+        }
+    }
+
+    abstract fun onCreate()
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        mViewDataBinding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
+        return mViewDataBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mViewDataBinding.setVariable(BR.viewModel, viewModel)
+        mViewDataBinding.lifecycleOwner = this
+        mViewDataBinding.executePendingBindings()
+
+        val menuHost: MenuHost = requireActivity()
+        menuProvider?.let { menuHost.addMenuProvider(it, viewLifecycleOwner, Lifecycle.State.RESUMED) }
+
+        onCreate()
+    }
+
+    fun getBaseActivity(): MainActivity? {
+        return mActivity
+    }
+
+    override fun onDetach() {
+        mActivity = null
+        super.onDetach()
+    }
+
+    interface CallBack {
+        fun onFragmentAttached()
+        fun onFragmentDetached(tag: String)
+    }
+}
