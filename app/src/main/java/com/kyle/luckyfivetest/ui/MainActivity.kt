@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView
 import com.kyle.luckyfivetest.R
 import com.kyle.luckyfivetest.databinding.ActivityMainBinding
 import com.kyle.luckyfivetest.ui.base.BaseFragment
+import com.kyle.luckyfivetest.ui.luckybox.LuckyBoxFragment
 import com.kyle.luckyfivetest.ui.main.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -87,8 +88,8 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item1 -> Toast.makeText(this, "item1", Toast.LENGTH_SHORT).show()
-            R.id.item2 -> Toast.makeText(this, "item2", Toast.LENGTH_SHORT).show()
+            R.id.item1 -> setChangeFragment(MainFragment())
+            R.id.item2 -> setChangeFragment(LuckyBoxFragment())
             R.id.item3 -> Toast.makeText(this, "item3", Toast.LENGTH_SHORT).show()
         }
 

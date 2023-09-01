@@ -18,5 +18,4 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
             getBaseActivity()?.setChangeFragment(LuckyBoxFragment())
         }
     }
-
 }
