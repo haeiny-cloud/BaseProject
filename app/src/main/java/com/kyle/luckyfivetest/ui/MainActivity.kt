@@ -2,6 +2,7 @@ package com.kyle.luckyfivetest.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
@@ -33,26 +34,7 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
         initDrawerViewAndEvents()
     }
 
-    private fun initDrawerViewAndEvents() {
-        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        binding.navigationView.setNavigationItemSelectedListener(this)
-
-        val headerView = binding.navigationView.getHeaderView(0)
-        val btnClose = headerView.findViewById<ImageView>(R.id.btn_close)
-
-        btnClose.setOnClickListener {
-            binding.drawerLayout.closeDrawers()
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> { // 메뉴 버튼
-                binding.drawerLayout.openDrawer(GravityCompat.START)    // 네비게이션 드로어 열기
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+    // Toolbar 설정 및 초기화 시작
 
     private fun initToolbar() {
         setSupportActionBar(binding.content.toolbar)
@@ -61,6 +43,30 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
         supportActionBar?.setDisplayShowTitleEnabled(false) // custom title (false)
         binding.content.toolbar.title = "test"
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_activity, menu)       // main_menu 메뉴를 toolbar 메뉴 버튼으로 설정
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> { // 메뉴 버튼
+                binding.drawerLayout.openDrawer(GravityCompat.START)    // 네비게이션 드로어 열기
+            }
+            R.id.item1 -> {
+                Toast.makeText(this, "item1 clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.item2 -> {
+                Toast.makeText(this, "item2 clicked", Toast.LENGTH_SHORT).show()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    // Toolbar 설정 및 초기화 종료
+
+    // Fragment 설정 및 초기화 시작
 
     private fun initMainFragment() {
         val fragmentManager = supportFragmentManager
@@ -86,6 +92,22 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
         fragmentTransaction.commit()
     }
 
+    // Fragment 설정 및 초기화 종료
+
+    // DrawerView 설정 및 초기화 시작
+
+    private fun initDrawerViewAndEvents() {
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        binding.navigationView.setNavigationItemSelectedListener(this)
+
+        val headerView = binding.navigationView.getHeaderView(0)
+        val btnClose = headerView.findViewById<ImageView>(R.id.btn_close)
+
+        btnClose.setOnClickListener {
+            binding.drawerLayout.closeDrawers()
+        }
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item1 -> setChangeFragment(MainFragment())
@@ -97,4 +119,6 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
         binding.drawerLayout.closeDrawers()
         return false
     }
+
+    // DrawerView 설정 및 초기화 종료
 }
