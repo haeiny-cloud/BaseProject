@@ -3,11 +3,13 @@ package com.kyle.luckyfivetest.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -22,15 +24,39 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
+
+    val mainMenuProvider = object : MenuProvider {
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.toolbar_activity, menu)
+        }
+
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            when (menuItem.itemId) {
+                android.R.id.home -> { // 메뉴 버튼
+                    binding.drawerLayout.openDrawer(GravityCompat.START)    // 네비게이션 드로어 열기
+                }
+
+                R.id.item1 -> {
+                    Toast.makeText(this@MainActivity, "item1 clicked", Toast.LENGTH_SHORT).show()
+                }
+
+                R.id.item2 -> {
+                    Toast.makeText(this@MainActivity, "item2 clicked", Toast.LENGTH_SHORT).show()
+                }
+            }
+            return true
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         initToolbar()
-        initMainFragment()
+        initMenuProvider()
 
+        initMainFragment()
         initDrawerViewAndEvents()
     }
 
@@ -44,24 +70,16 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
         binding.content.toolbar.title = "test"
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_activity, menu)       // main_menu 메뉴를 toolbar 메뉴 버튼으로 설정
-        return true
+    private fun initMenuProvider() {
+        addMenuProvider(mainMenuProvider)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> { // 메뉴 버튼
-                binding.drawerLayout.openDrawer(GravityCompat.START)    // 네비게이션 드로어 열기
-            }
-            R.id.item1 -> {
-                Toast.makeText(this, "item1 clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.item2 -> {
-                Toast.makeText(this, "item2 clicked", Toast.LENGTH_SHORT).show()
-            }
-        }
-        return super.onOptionsItemSelected(item)
+    fun changeToolbar(menuProvider: MenuProvider, title: String) {
+        supportActionBar?.setHomeAsUpIndicator(null)
+        removeMenuProvider(mainMenuProvider)
+        addMenuProvider(menuProvider)
+        this.invalidateMenu()
+        binding.content.toolbar.title = title
     }
 
     // Toolbar 설정 및 초기화 종료

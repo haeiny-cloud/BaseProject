@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import com.kyle.luckyfivetest.BR
 import com.kyle.luckyfivetest.ui.MainActivity
 
@@ -20,7 +18,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragmen
 
     abstract val layoutResId: Int
     abstract val viewModel: VM
-    abstract val menuProvider: MenuProvider?
+    abstract var menuProvider: MenuProvider?
     abstract val fragment: String
 
     private var mActivity: MainActivity? = null
@@ -46,10 +44,12 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragmen
         mViewDataBinding.lifecycleOwner = this
         mViewDataBinding.executePendingBindings()
 
-        val menuHost: MenuHost = requireActivity()
-        menuProvider?.let { menuHost.addMenuProvider(it, viewLifecycleOwner, Lifecycle.State.RESUMED) }
-
         onCreate()
+
+        menuProvider?.let {
+            mActivity?.changeToolbar(menuProvider!!, fragment)
+            mActivity?.invalidateOptionsMenu()
+        }
     }
 
     fun getBaseActivity(): MainActivity? {
