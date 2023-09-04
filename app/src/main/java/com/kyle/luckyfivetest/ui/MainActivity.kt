@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -67,19 +68,21 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 표시 유무
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_action_open_drawer) // 뒤로가기 버튼 이미지 변경
         supportActionBar?.setDisplayShowTitleEnabled(false) // custom title (false)
-        binding.content.toolbar.title = "test"
     }
 
     private fun initMenuProvider() {
         addMenuProvider(mainMenuProvider)
     }
 
-    fun changeToolbar(menuProvider: MenuProvider, title: String) {
-        supportActionBar?.setHomeAsUpIndicator(null)
-        removeMenuProvider(mainMenuProvider)
-        addMenuProvider(menuProvider)
-        this.invalidateMenu()
-        binding.content.toolbar.title = title
+    fun changeToolbar(title: String?) {
+        title?.let {
+            binding.content.appLogo.visibility = View.GONE
+            binding.content.toolbarTitle.visibility = View.VISIBLE
+            binding.content.toolbarTitle.text = title
+        } ?: run {
+            binding.content.appLogo.visibility = View.VISIBLE
+            binding.content.toolbarTitle.visibility = View.GONE
+        }
     }
 
     // Toolbar 설정 및 초기화 종료

@@ -18,5 +18,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         mViewDataBinding.btn.setOnClickListener {
             getBaseActivity()?.setChangeFragment(LuckyBoxFragment())
         }
+
+
     }
 }

@@ -47,9 +47,11 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragmen
         onCreate()
 
         menuProvider?.let {
-            mActivity?.changeToolbar(menuProvider!!, fragment)
-            mActivity?.invalidateOptionsMenu()
+            mActivity?.changeToolbar(fragment)
+        } ?: run {
+            mActivity?.changeToolbar(null)
         }
+
     }
 
     fun getBaseActivity(): MainActivity? {
