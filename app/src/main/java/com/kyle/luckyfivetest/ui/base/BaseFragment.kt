@@ -43,6 +43,8 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragmen
         mViewDataBinding.lifecycleOwner = this
         mViewDataBinding.executePendingBindings()
 
+        mActivity?.onFragmentViewCreated(fragment)
+
         onCreate()
     }
 
@@ -59,6 +61,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragmen
     interface CallBack {
         fun onFragmentAttached(fragment: String)
         fun onFragmentDetached(fragment: String)
+        fun onFragmentViewCreated(fragment: String)
         fun setChangeFragment(fragment: Fragment)
     }
 }

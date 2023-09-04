@@ -34,4 +34,8 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompat
     override fun onFragmentDetached(fragment: String) {
         Log.d("TAG", "$fragment is Detached")
     }
+
+    override fun onFragmentViewCreated(fragment: String) {
+        Log.d("TAG", "$fragment is ViewCreated")
+    }
 }
