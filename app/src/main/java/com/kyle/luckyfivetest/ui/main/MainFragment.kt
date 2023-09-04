@@ -5,7 +5,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import com.kyle.luckyfivetest.R
 import com.kyle.luckyfivetest.databinding.FragmentMainBinding
-import com.kyle.luckyfivetest.ui.BackStackActivity
+import com.kyle.luckyfivetest.ui.activity.backstack.BackStackActivity
 import com.kyle.luckyfivetest.ui.base.BaseFragment
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {

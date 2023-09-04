@@ -1,15 +1,13 @@
-package com.kyle.luckyfivetest.ui
+package com.kyle.luckyfivetest.ui.activity.backstack
 
 import androidx.lifecycle.MutableLiveData
 import com.kyle.luckyfivetest.ui.base.BaseViewModel
 
-class MainViewModel : BaseViewModel() {
+class BackStackViewModel: BaseViewModel() {
 
     val title: MutableLiveData<String> = MutableLiveData("MainFragment")
-    val titleVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun changeTitle(title: String) {
         this.title.value = title
-        titleVisibility.value = (this.title.value != "MainFragment")
     }
 }

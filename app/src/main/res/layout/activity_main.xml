@@ -9,14 +9,14 @@
 
         <variable
             name="vm"
-            type="com.kyle.luckyfivetest.ui.MainViewModel" />
+            type="com.kyle.luckyfivetest.ui.activity.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".ui.MainActivity">
+        tools:context=".ui.activity.main.MainActivity">
 
         <androidx.drawerlayout.widget.DrawerLayout
             android:id="@+id/drawer_layout"
@@ -27,7 +27,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".ui.MainActivity">
+                tools:context=".ui.activity.main.MainActivity">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"

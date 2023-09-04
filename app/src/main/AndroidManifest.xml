@@ -16,10 +16,10 @@
         android:theme="@style/Theme.LuckyFiveTest"
         tools:targetApi="31">
         <activity
-            android:name=".ui.BackStackActivity"
+            android:name=".ui.activity.backstack.BackStackActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.activity.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

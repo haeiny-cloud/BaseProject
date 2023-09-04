@@ -1,4 +1,4 @@
-package com.kyle.luckyfivetest.ui
+package com.kyle.luckyfivetest.ui.activity.main
 
 import android.util.Log
 import android.view.Menu
