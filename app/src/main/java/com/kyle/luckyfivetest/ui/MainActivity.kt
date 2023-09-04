@@ -1,33 +1,33 @@
 package com.kyle.luckyfivetest.ui
 
-import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.core.view.MenuProvider
-import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.kyle.luckyfivetest.R
 import com.kyle.luckyfivetest.databinding.ActivityMainBinding
+import com.kyle.luckyfivetest.ui.base.BaseActivity
 import com.kyle.luckyfivetest.ui.base.BaseFragment
 import com.kyle.luckyfivetest.ui.luckybox.LuckyBoxFragment
 import com.kyle.luckyfivetest.ui.main.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFragment.CallBack, NavigationView.OnNavigationItemSelectedListener {
 
-    lateinit var binding: ActivityMainBinding
+    override val layoutId: Int = R.layout.activity_main
 
-    val mainMenuProvider = object : MenuProvider {
+    override val viewModel: MainViewModel by viewModels()
+
+    private val mainMenuProvider = object : MenuProvider {
         override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
             menuInflater.inflate(R.menu.toolbar_activity, menu)
         }
@@ -35,11 +35,11 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
             when (menuItem.itemId) {
                 android.R.id.home -> { // 메뉴 버튼
-                    binding.drawerLayout.openDrawer(GravityCompat.START)    // 네비게이션 드로어 열기
+                    mViewDataBinding.drawerLayout.openDrawer(GravityCompat.START)    // 네비게이션 드로어 열기
                 }
 
                 R.id.item1 -> {
-                    Toast.makeText(this@MainActivity, "item1 clicked", Toast.LENGTH_SHORT).show()
+                    Log.d("TAG", viewModel.titleVisibility.value.toString())
                 }
 
                 R.id.item2 -> {
@@ -50,10 +50,7 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
+    override fun setUp() {
         initToolbar()
         initMenuProvider()
 
@@ -64,7 +61,7 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
     // Toolbar 설정 및 초기화 시작
 
     private fun initToolbar() {
-        setSupportActionBar(binding.content.toolbar)
+        setSupportActionBar(mViewDataBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 표시 유무
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_action_open_drawer) // 뒤로가기 버튼 이미지 변경
         supportActionBar?.setDisplayShowTitleEnabled(false) // custom title (false)
@@ -74,15 +71,9 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
         addMenuProvider(mainMenuProvider)
     }
 
-    fun changeToolbar(title: String?) {
-        title?.let {
-            binding.content.appLogo.visibility = View.GONE
-            binding.content.toolbarTitle.visibility = View.VISIBLE
-            binding.content.toolbarTitle.text = title
-        } ?: run {
-            binding.content.appLogo.visibility = View.VISIBLE
-            binding.content.toolbarTitle.visibility = View.GONE
-        }
+    override fun onFragmentAttached(fragment: String) {
+        super.onFragmentAttached(fragment)
+        viewModel.changeTitle(fragment)
     }
 
     // Toolbar 설정 및 초기화 종료
@@ -98,14 +89,6 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
         fragmentTransaction.commit()
     }
 
-    override fun onFragmentAttached(fragment: String) {
-        Log.d("TAG", "$fragment is attached")
-    }
-
-    override fun onFragmentDetached(fragment: String) {
-        Log.d("TAG", "$fragment is Detached")
-    }
-
     override fun setChangeFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -118,14 +101,14 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
     // DrawerView 설정 및 초기화 시작
 
     private fun initDrawerViewAndEvents() {
-        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        binding.navigationView.setNavigationItemSelectedListener(this)
+        mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        mViewDataBinding.navigationView.setNavigationItemSelectedListener(this)
 
-        val headerView = binding.navigationView.getHeaderView(0)
+        val headerView = mViewDataBinding.navigationView.getHeaderView(0)
         val btnClose = headerView.findViewById<ImageView>(R.id.btn_close)
 
         btnClose.setOnClickListener {
-            binding.drawerLayout.closeDrawers()
+            mViewDataBinding.drawerLayout.closeDrawers()
         }
     }
 
@@ -137,7 +120,7 @@ class MainActivity : AppCompatActivity(), BaseFragment.CallBack, NavigationView.
         }
 
         // close navigation view
-        binding.drawerLayout.closeDrawers()
+        mViewDataBinding.drawerLayout.closeDrawers()
         return false
     }
 

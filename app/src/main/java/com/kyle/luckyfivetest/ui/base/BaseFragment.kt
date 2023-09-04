@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.kyle.luckyfivetest.BR
-import com.kyle.luckyfivetest.ui.MainActivity
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragment() {
 
@@ -21,11 +20,11 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragmen
     abstract var menuProvider: MenuProvider?
     abstract val fragment: String
 
-    private var mActivity: MainActivity? = null
+    private var mActivity: BaseActivity<*, *>? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is MainActivity) {
+        if (context is BaseActivity<*, *>) {
             mActivity = context
             mActivity?.onFragmentAttached(fragment)
         }
@@ -45,16 +44,9 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragmen
         mViewDataBinding.executePendingBindings()
 
         onCreate()
-
-        menuProvider?.let {
-            mActivity?.changeToolbar(fragment)
-        } ?: run {
-            mActivity?.changeToolbar(null)
-        }
-
     }
 
-    fun getBaseActivity(): MainActivity? {
+    fun getBaseActivity(): BaseActivity<*, *>? {
         return mActivity
     }
 
