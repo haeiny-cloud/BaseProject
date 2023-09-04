@@ -20,6 +20,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
             val intent = Intent(requireActivity(), BackStackActivity::class.java)
             intent.putExtra("fragment", "Product")
             getBaseActivity()?.startActivity(intent)
+            getBaseActivity()?.overridePendingTransition(R.anim.activity_start_enter, R.anim.activity_start_exit)
         }
     }
 }

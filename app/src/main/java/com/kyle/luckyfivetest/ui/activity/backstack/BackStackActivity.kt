@@ -23,8 +23,10 @@ class BackStackActivity : BaseActivity<ActivityBackStackBinding, BackStackViewMo
         override fun handleOnBackPressed() {
             if (supportFragmentManager.backStackEntryCount >= 1)
                 supportFragmentManager.popBackStack()
-            else
+            else {
                 finish()
+                overridePendingTransition(R.anim.activity_finish_enter, R.anim.activity_finish_exit)
+            }
         }
     }
 
