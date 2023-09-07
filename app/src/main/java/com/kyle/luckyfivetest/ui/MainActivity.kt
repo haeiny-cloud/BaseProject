@@ -1,5 +1,6 @@
 package com.kyle.luckyfivetest.ui
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -107,6 +108,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
         super.onFragmentAttached(fragment)
         viewModel.changeTitle(fragment)
         mViewDataBinding.progressBar.visibility = View.GONE
+        Log.d("TAG", supportFragmentManager.backStackEntryCount.toString())
     }
 
     // DrawerView 설정 및 초기화 시작
