@@ -1,13 +1,12 @@
 package com.kyle.luckyfivetest.ui.main
 
-import android.content.Intent
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.kyle.luckyfivetest.R
 import com.kyle.luckyfivetest.data.db.entity.ProductEntity
 import com.kyle.luckyfivetest.databinding.FragmentMainBinding
-import com.kyle.luckyfivetest.ui.activity.backstack.BackStackActivity
 import com.kyle.luckyfivetest.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -21,12 +20,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override val fragment: String = "MainFragment"
 
     override fun onCreate() {
-        mViewDataBinding.btn.setOnClickListener {
-            val intent = Intent(requireActivity(), BackStackActivity::class.java)
-            intent.putExtra("fragment", "Product")
-            getBaseActivity()?.startActivity(intent)
-            getBaseActivity()?.overridePendingTransition(R.anim.activity_start_enter, R.anim.activity_start_exit)
-        }
+        mViewDataBinding.btn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.productFragment, null))
 
         mViewDataBinding.add.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {

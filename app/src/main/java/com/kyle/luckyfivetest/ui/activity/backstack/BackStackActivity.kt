@@ -82,12 +82,4 @@ class BackStackActivity : BaseActivity<ActivityBackStackBinding, BackStackViewMo
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 표시 유무
         supportActionBar?.setDisplayShowTitleEnabled(false) // custom title (false)
     }
-
-    override fun setChangeFragment(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout, fragment)
-        fragmentTransaction.addToBackStack(null) // fragment stack에 추가
-        fragmentTransaction.commit()
-    }
 }

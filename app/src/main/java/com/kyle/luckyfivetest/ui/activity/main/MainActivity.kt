@@ -1,16 +1,15 @@
 package com.kyle.luckyfivetest.ui.activity.main
 
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
-import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.kyle.luckyfivetest.R
 import com.kyle.luckyfivetest.databinding.ActivityMainBinding
@@ -22,96 +21,93 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFragment.CallBack {
 
     override val layoutId: Int = R.layout.activity_main
-
     override val viewModel: MainViewModel by viewModels()
-
-    private val mainMenuProvider = object : MenuProvider {
-        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            menuInflater.inflate(R.menu.toolbar_activity, menu)
-        }
-
-        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-            when (menuItem.itemId) {
-                android.R.id.home -> { // 메뉴 버튼
-                    mViewDataBinding.drawerLayout.openDrawer(GravityCompat.START)    // 네비게이션 드로어 열기
-                }
-
-                R.id.item1 -> {
-                    supportActionBar?.hide()
-                }
-
-                R.id.item2 -> {
-                    Toast.makeText(this@MainActivity, "item2 clicked", Toast.LENGTH_SHORT).show()
-                    supportActionBar?.show()
-                }
-            }
-            return true
-        }
-    }
+    lateinit var navController: NavController
 
     override fun setUp() {
-        initToolbar()
-        initMenuProvider()
+        initNavigationEvents()
+        initDefaultToolbar()
+        initBackstackToolbar()
+        initDrawerViewAndEvents()
+    }
+
+    private fun initNavigationEvents() {
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.mainFragment,
+                R.id.luckyBoxFragment,
+            )
+        )
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            mViewDataBinding.bottomNav.isVisible =
+                appBarConfiguration.topLevelDestinations.contains(destination.id)
+            mViewDataBinding.drawerLayout.closeDrawers()
+            mViewDataBinding.progressBar.visibility = View.VISIBLE
+
             when (destination.id) {
                 R.id.mainFragment, R.id.luckyBoxFragment -> {
-                    mViewDataBinding.drawerLayout.closeDrawers()
+                    mViewDataBinding.defaultToolbar.visibility = View.VISIBLE
+                    mViewDataBinding.backstackToolbar.visibility = View.GONE
+                }
+
+                else -> {
+                    mViewDataBinding.defaultToolbar.visibility = View.GONE
+                    mViewDataBinding.backstackToolbar.visibility = View.VISIBLE
                 }
             }
         }
-
 
         mViewDataBinding.bottomNav.setupWithNavController(navController)
         mViewDataBinding.navigationView.setupWithNavController(navController)
-
-        // initMainFragment()
-        initDrawerViewAndEvents()
-
-
     }
 
     // Toolbar 설정 및 초기화 시작
 
-    private fun initToolbar() {
-        setSupportActionBar(mViewDataBinding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 표시 유무
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_action_open_drawer) // 뒤로가기 버튼 이미지 변경
-        supportActionBar?.setDisplayShowTitleEnabled(false) // custom title (false)
+    private fun initDefaultToolbar() {
+        mViewDataBinding.defaultToolbar.inflateMenu(R.menu.toolbar_activity)
+        mViewDataBinding.defaultToolbar.setNavigationIcon(R.drawable.ic_action_open_drawer)
+
+        mViewDataBinding.defaultToolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.item1 -> {
+                    Toast.makeText(this@MainActivity, "item1 clicked", Toast.LENGTH_SHORT).show()
+                    return@setOnMenuItemClickListener true
+                }
+
+                R.id.item2 -> {
+                    Toast.makeText(this@MainActivity, "item2 clicked", Toast.LENGTH_SHORT).show()
+                    return@setOnMenuItemClickListener true
+                }
+
+                else -> {
+                    return@setOnMenuItemClickListener false
+                }
+            }
+        }
+
+        mViewDataBinding.defaultToolbar.setNavigationOnClickListener {
+            mViewDataBinding.drawerLayout.openDrawer(GravityCompat.START)    // 네비게이션 드로어 열기
+        }
     }
 
-    private fun initMenuProvider() {
-        addMenuProvider(mainMenuProvider)
-    }
-
-    override fun onFragmentAttached(fragment: String) {
-        super.onFragmentAttached(fragment)
-        viewModel.changeTitle(fragment)
+    private fun initBackstackToolbar() {
+        mViewDataBinding.backstackToolbar.setNavigationIcon(R.drawable.ic_action_back)
+        mViewDataBinding.backstackToolbar.setNavigationOnClickListener {
+            navController.popBackStack()
+        }
     }
 
     // Toolbar 설정 및 초기화 종료
 
-    // Fragment 설정 및 초기화 시작
-
-    private fun initMainFragment() {
-//        val fragmentManager = supportFragmentManager
-//        val fragmentTransaction = fragmentManager.beginTransaction()
-//
-//        val fragment = MainFragment()
-//        fragmentTransaction.add(R.id.fragment_container, fragment)
-//        fragmentTransaction.commit()
+    override fun onFragmentViewCreated(fragment: String) {
+        super.onFragmentAttached(fragment)
+        viewModel.changeTitle(fragment)
+        mViewDataBinding.progressBar.visibility = View.GONE
     }
-
-    override fun setChangeFragment(fragment: Fragment) {
-//        val fragmentManager = supportFragmentManager
-//        val fragmentTransaction = fragmentManager.beginTransaction()
-//        fragmentTransaction.replace(R.id.fragment_container, fragment)
-//        fragmentTransaction.commit()
-    }
-
-    // Fragment 설정 및 초기화 종료
 
     // DrawerView 설정 및 초기화 시작
 

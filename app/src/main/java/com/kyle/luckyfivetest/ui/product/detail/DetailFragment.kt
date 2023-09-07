@@ -16,6 +16,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>() {
     override val fragment: String = "DetailFragment"
 
     override fun onCreate() {
-
+        viewModel.product.observe(viewLifecycleOwner) {
+            mViewDataBinding.item = it
+        }
     }
 }

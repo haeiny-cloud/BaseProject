@@ -62,6 +62,5 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragmen
         fun onFragmentAttached(fragment: String)
         fun onFragmentDetached(fragment: String)
         fun onFragmentViewCreated(fragment: String)
-        fun setChangeFragment(fragment: Fragment)
     }
 }
