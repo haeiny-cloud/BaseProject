@@ -1,6 +1,5 @@
 package com.kyle.luckyfivetest.ui.activity.main
 
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -11,17 +10,16 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.MenuProvider
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import com.google.android.material.navigation.NavigationView
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.kyle.luckyfivetest.R
 import com.kyle.luckyfivetest.databinding.ActivityMainBinding
 import com.kyle.luckyfivetest.ui.base.BaseActivity
 import com.kyle.luckyfivetest.ui.base.BaseFragment
-import com.kyle.luckyfivetest.ui.luckybox.LuckyBoxFragment
-import com.kyle.luckyfivetest.ui.main.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFragment.CallBack, NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFragment.CallBack {
 
     override val layoutId: Int = R.layout.activity_main
 
@@ -39,11 +37,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
                 }
 
                 R.id.item1 -> {
-                    Log.d("TAG", viewModel.titleVisibility.value.toString())
+                    supportActionBar?.hide()
                 }
 
                 R.id.item2 -> {
                     Toast.makeText(this@MainActivity, "item2 clicked", Toast.LENGTH_SHORT).show()
+                    supportActionBar?.show()
                 }
             }
             return true
@@ -54,8 +53,24 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
         initToolbar()
         initMenuProvider()
 
-        initMainFragment()
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.mainFragment, R.id.luckyBoxFragment -> {
+                    mViewDataBinding.drawerLayout.closeDrawers()
+                }
+            }
+        }
+
+
+        mViewDataBinding.bottomNav.setupWithNavController(navController)
+        mViewDataBinding.navigationView.setupWithNavController(navController)
+
+        // initMainFragment()
         initDrawerViewAndEvents()
+
+
     }
 
     // Toolbar 설정 및 초기화 시작
@@ -81,19 +96,19 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
     // Fragment 설정 및 초기화 시작
 
     private fun initMainFragment() {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-
-        val fragment = MainFragment()
-        fragmentTransaction.add(R.id.frame_layout, fragment)
-        fragmentTransaction.commit()
+//        val fragmentManager = supportFragmentManager
+//        val fragmentTransaction = fragmentManager.beginTransaction()
+//
+//        val fragment = MainFragment()
+//        fragmentTransaction.add(R.id.fragment_container, fragment)
+//        fragmentTransaction.commit()
     }
 
     override fun setChangeFragment(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout, fragment)
-        fragmentTransaction.commit()
+//        val fragmentManager = supportFragmentManager
+//        val fragmentTransaction = fragmentManager.beginTransaction()
+//        fragmentTransaction.replace(R.id.fragment_container, fragment)
+//        fragmentTransaction.commit()
     }
 
     // Fragment 설정 및 초기화 종료
@@ -102,7 +117,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
 
     private fun initDrawerViewAndEvents() {
         mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        mViewDataBinding.navigationView.setNavigationItemSelectedListener(this)
 
         val headerView = mViewDataBinding.navigationView.getHeaderView(0)
         val btnClose = headerView.findViewById<ImageView>(R.id.btn_close)
@@ -110,18 +124,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
         btnClose.setOnClickListener {
             mViewDataBinding.drawerLayout.closeDrawers()
         }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.item1 -> setChangeFragment(MainFragment())
-            R.id.item2 -> setChangeFragment(LuckyBoxFragment())
-            R.id.item3 -> Toast.makeText(this, "item3", Toast.LENGTH_SHORT).show()
-        }
-
-        // close navigation view
-        mViewDataBinding.drawerLayout.closeDrawers()
-        return false
     }
 
     // DrawerView 설정 및 초기화 종료
