@@ -9,14 +9,14 @@
 
         <variable
             name="vm"
-            type="com.kyle.luckyfivetest.ui.activity.main.MainViewModel" />
+            type="com.kyle.luckyfivetest.ui.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".ui.activity.main.MainActivity">
+        tools:context=".ui.MainActivity">
 
         <androidx.drawerlayout.widget.DrawerLayout
             android:id="@+id/drawer_layout"

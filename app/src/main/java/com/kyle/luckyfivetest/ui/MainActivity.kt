@@ -1,4 +1,4 @@
-package com.kyle.luckyfivetest.ui.activity.main
+package com.kyle.luckyfivetest.ui
 
 import android.view.View
 import android.widget.ImageView

@@ -1,4 +1,4 @@
-package com.kyle.luckyfivetest.ui.activity.main
+package com.kyle.luckyfivetest.ui
 
 import androidx.lifecycle.MutableLiveData
 import com.kyle.luckyfivetest.ui.base.BaseViewModel
