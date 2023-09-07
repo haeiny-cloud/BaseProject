@@ -2,8 +2,12 @@ package com.kyle.luckyfivetest.ui.activity.main
 
 import androidx.lifecycle.MutableLiveData
 import com.kyle.luckyfivetest.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainViewModel : BaseViewModel() {
+@HiltViewModel
+
+class MainViewModel @Inject constructor(): BaseViewModel() {
 
     val title: MutableLiveData<String> = MutableLiveData("MainFragment")
     val titleVisibility: MutableLiveData<Boolean> = MutableLiveData(false)

@@ -13,6 +13,9 @@ import com.kyle.luckyfivetest.databinding.ActivityBackStackBinding
 import com.kyle.luckyfivetest.ui.base.BaseActivity
 import com.kyle.luckyfivetest.ui.product.ProductFragment
 import com.kyle.luckyfivetest.ui.product.detail.DetailFragment
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 
 class BackStackActivity : BaseActivity<ActivityBackStackBinding, BackStackViewModel>() {
 

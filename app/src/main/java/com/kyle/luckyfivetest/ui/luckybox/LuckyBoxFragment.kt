@@ -8,6 +8,9 @@ import androidx.fragment.app.viewModels
 import com.kyle.luckyfivetest.R
 import com.kyle.luckyfivetest.databinding.FragmentLuckyBoxBinding
 import com.kyle.luckyfivetest.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 
 class LuckyBoxFragment : BaseFragment<FragmentLuckyBoxBinding, LuckyBoxViewModel>() {
 
