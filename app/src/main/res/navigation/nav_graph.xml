@@ -20,8 +20,8 @@
         android:label="LuckyBoxFragment"
         tools:layout="@layout/fragment_lucky_box">
         <action
-            android:id="@+id/action_luckyBoxFragment_to_productFragment"
-            app:destination="@id/productFragment" />
+            android:id="@+id/action_luckyBoxFragment_to_boxOpenFragment"
+            app:destination="@id/boxOpenFragment" />
     </fragment>
     <fragment
         android:id="@+id/productFragment"
@@ -47,5 +47,34 @@
             android:name="productId"
             android:defaultValue="0"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/boxResultFragment"
+        android:name="com.kyle.luckyfivetest.ui.boxresult.BoxResultFragment"
+        android:label="BoxResultFragment"
+        tools:layout="@layout/fragment_box_result">
+        <action
+            android:id="@+id/action_boxResultFragment_to_boxOpenFragment"
+            app:destination="@id/boxOpenFragment"
+            app:popUpTo="@id/boxOpenFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_boxResultFragment_to_luckyBoxFragment"
+            app:destination="@id/luckyBoxFragment"
+            app:popUpTo="@id/luckyBoxFragment"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/boxOpenFragment"
+        android:name="com.kyle.luckyfivetest.ui.boxopen.BoxOpenFragment"
+        android:label="BoxOpenFragment"
+        tools:layout="@layout/fragment_box_open">
+        <action
+            android:id="@+id/action_boxOpenFragment_to_boxResultFragment"
+            app:destination="@id/boxResultFragment"
+            app:popUpTo="@id/boxResultFragment"
+            app:popUpToInclusive="true"
+            />
     </fragment>
 </navigation>

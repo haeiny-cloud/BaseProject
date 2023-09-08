@@ -1,10 +1,8 @@
 package com.kyle.luckyfivetest.ui.product
 
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kyle.luckyfivetest.R
 import com.kyle.luckyfivetest.databinding.FragmentProductBinding
@@ -19,8 +17,7 @@ import kotlinx.coroutines.launch
 class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>() {
     override val layoutResId: Int = R.layout.fragment_product
     override val viewModel: ProductViewModel by viewModels()
-    override var menuProvider: MenuProvider? = null
-    override val fragment: String = "ProductFragment"
+    override val fragment: String = "상품조회"
 
     override fun onCreate() {
         val recyclerViewAdapter = ProductRecyclerViewAdapter()

@@ -1,6 +1,5 @@
 package com.kyle.luckyfivetest.ui.main
 
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -16,7 +15,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override val layoutResId: Int = R.layout.fragment_main
     override val viewModel: MainViewModel by viewModels()
-    override var menuProvider: MenuProvider? = null
     override val fragment: String = "MainFragment"
 
     override fun onCreate() {

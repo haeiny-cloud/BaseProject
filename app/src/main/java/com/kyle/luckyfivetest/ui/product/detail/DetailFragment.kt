@@ -1,7 +1,5 @@
 package com.kyle.luckyfivetest.ui.product.detail
 
-import android.util.Log
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -15,8 +13,7 @@ import kotlinx.coroutines.launch
 class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>() {
     override val layoutResId: Int = R.layout.fragment_detail
     override val viewModel: DetailViewModel by viewModels()
-    override var menuProvider: MenuProvider? = null
-    override val fragment: String = "DetailFragment"
+    override val fragment: String = "상품상세"
 
     private val args: DetailFragmentArgs by navArgs()
 
