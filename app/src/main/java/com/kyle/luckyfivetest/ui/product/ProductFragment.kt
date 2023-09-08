@@ -3,6 +3,8 @@ package com.kyle.luckyfivetest.ui.product
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kyle.luckyfivetest.R
 import com.kyle.luckyfivetest.databinding.FragmentProductBinding
@@ -33,6 +35,11 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>()
             addItemDecoration(
                 GridSpacingItemDecoration(spanCount, spacing, includeEdge)
             )
+        }
+
+        recyclerViewAdapter.setOnItemClickListener { view, productEntity, _ ->
+            val action = ProductFragmentDirections.actionProductFragmentToDetailFragment(productEntity.productId)
+            view.findNavController().navigate(action)
         }
 
         lifecycleScope.launch {

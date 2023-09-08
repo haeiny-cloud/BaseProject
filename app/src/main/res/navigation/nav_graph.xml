@@ -30,11 +30,22 @@
         tools:layout="@layout/fragment_product">
         <action
             android:id="@+id/action_productFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment">
+            <argument
+                android:name="productId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
+
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.kyle.luckyfivetest.ui.product.detail.DetailFragment"
         android:label="DetailFragment"
-        tools:layout="@layout/fragment_detail"/>
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="productId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 </navigation>

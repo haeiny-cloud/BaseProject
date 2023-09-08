@@ -108,7 +108,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
         super.onFragmentAttached(fragment)
         viewModel.changeTitle(fragment)
         mViewDataBinding.progressBar.visibility = View.GONE
-        Log.d("TAG", supportFragmentManager.backStackEntryCount.toString())
     }
 
     // DrawerView 설정 및 초기화 시작

@@ -14,7 +14,7 @@ class DetailViewModel @Inject constructor(
 
     var product: MutableLiveData<ProductEntity> = MutableLiveData()
 
-    suspend fun getProduct(index: Int): ProductEntity {
-        return productRepository.getProduct(index)
+    suspend fun getProduct(index: Int) {
+        product.value = productRepository.getProduct(index)
     }
 }
