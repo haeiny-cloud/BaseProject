@@ -1,6 +1,5 @@
 package com.kyle.luckyfivetest.ui
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -47,7 +46,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
             mViewDataBinding.bottomNav.isVisible =
                 appBarConfiguration.topLevelDestinations.contains(destination.id)
             mViewDataBinding.drawerLayout.closeDrawers()
-            // mViewDataBinding.progressBar.visibility = View.VISIBLE
 
             when (destination.id) {
                 R.id.mainFragment, R.id.luckyBoxFragment -> {
@@ -107,7 +105,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
     override fun onFragmentViewCreated(fragment: String) {
         super.onFragmentViewCreated(fragment)
         viewModel.changeTitle(fragment)
-        // mViewDataBinding.progressBar.visibility = View.GONE
     }
 
     // DrawerView 설정 및 초기화 시작
