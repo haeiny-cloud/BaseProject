@@ -3,15 +3,21 @@ package com.kyle.luckyfivetest.utils
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 
 object BindingAdapter {
 
     @BindingAdapter("imageUrl")
     @JvmStatic
     fun setImage(imageView: ImageView, url: String?) {
-        Glide.with(imageView.context)
+        val circularProgressDrawable = CircularProgressDrawable(imageView.context)
+        circularProgressDrawable.strokeWidth = 5f
+        circularProgressDrawable.centerRadius = 30f
+        circularProgressDrawable.start()
+
+        GlideApp.with(imageView.context)
             .load(url)
+            .placeholder(circularProgressDrawable)
             .into(imageView)
     }
 

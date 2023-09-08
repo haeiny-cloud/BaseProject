@@ -47,7 +47,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
             mViewDataBinding.bottomNav.isVisible =
                 appBarConfiguration.topLevelDestinations.contains(destination.id)
             mViewDataBinding.drawerLayout.closeDrawers()
-            mViewDataBinding.progressBar.visibility = View.VISIBLE
+            // mViewDataBinding.progressBar.visibility = View.VISIBLE
 
             when (destination.id) {
                 R.id.mainFragment, R.id.luckyBoxFragment -> {
@@ -105,9 +105,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
     // Toolbar 설정 및 초기화 종료
 
     override fun onFragmentViewCreated(fragment: String) {
-        super.onFragmentAttached(fragment)
+        super.onFragmentViewCreated(fragment)
         viewModel.changeTitle(fragment)
-        mViewDataBinding.progressBar.visibility = View.GONE
+        // mViewDataBinding.progressBar.visibility = View.GONE
     }
 
     // DrawerView 설정 및 초기화 시작
