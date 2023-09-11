@@ -1,7 +1,7 @@
 package com.kyle.luckyfivetest.ui.main
 
 import com.kyle.luckyfivetest.data.db.entity.ProductEntity
-import com.kyle.luckyfivetest.domain.repo.ProductRepository
+import com.kyle.luckyfivetest.domain.repo.product.ProductRepository
 import com.kyle.luckyfivetest.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

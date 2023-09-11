@@ -74,4 +74,9 @@
             android:id="@+id/action_boxOpenFragment_to_boxResultFragment"
             app:destination="@id/boxResultFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.kyle.luckyfivetest.ui.users.UsersFragment"
+        android:label="UsersFragment"
+        tools:layout="@layout/fragment_users"/>
 </navigation>

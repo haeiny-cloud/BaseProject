@@ -2,7 +2,7 @@ package com.kyle.luckyfivetest.ui.product.detail
 
 import androidx.lifecycle.MutableLiveData
 import com.kyle.luckyfivetest.data.db.entity.ProductEntity
-import com.kyle.luckyfivetest.domain.repo.ProductRepository
+import com.kyle.luckyfivetest.domain.repo.product.ProductRepository
 import com.kyle.luckyfivetest.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

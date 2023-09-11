@@ -1,4 +1,4 @@
-package com.kyle.luckyfivetest.domain.repo
+package com.kyle.luckyfivetest.domain.repo.product
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig

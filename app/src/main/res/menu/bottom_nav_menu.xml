@@ -11,4 +11,9 @@
         android:title="lucky"
         android:enabled="true"
         android:icon="@mipmap/ic_launcher"/>
+    <item
+        android:id="@+id/usersFragment"
+        android:title="users"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_close"/>
 </menu>

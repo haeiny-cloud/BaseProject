@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
-import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -43,19 +42,19 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
         navController = navHostFragment.navController
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            mViewDataBinding.bottomNav.isVisible =
-                appBarConfiguration.topLevelDestinations.contains(destination.id)
             mViewDataBinding.drawerLayout.closeDrawers()
 
             when (destination.id) {
                 R.id.mainFragment, R.id.luckyBoxFragment -> {
                     mViewDataBinding.defaultToolbar.visibility = View.VISIBLE
                     mViewDataBinding.backstackToolbar.visibility = View.GONE
+                    mViewDataBinding.bottomNav.visibility = View.VISIBLE
                 }
 
                 else -> {
                     mViewDataBinding.defaultToolbar.visibility = View.GONE
                     mViewDataBinding.backstackToolbar.visibility = View.VISIBLE
+                    mViewDataBinding.bottomNav.visibility = View.GONE
                 }
             }
         }
