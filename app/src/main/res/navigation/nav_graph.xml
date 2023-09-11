@@ -72,9 +72,6 @@
         tools:layout="@layout/fragment_box_open">
         <action
             android:id="@+id/action_boxOpenFragment_to_boxResultFragment"
-            app:destination="@id/boxResultFragment"
-            app:popUpTo="@id/boxResultFragment"
-            app:popUpToInclusive="true"
-            />
+            app:destination="@id/boxResultFragment" />
     </fragment>
 </navigation>

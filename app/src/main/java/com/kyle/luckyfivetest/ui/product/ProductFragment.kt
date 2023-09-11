@@ -1,7 +1,6 @@
 package com.kyle.luckyfivetest.ui.product
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kyle.luckyfivetest.R
@@ -9,9 +8,6 @@ import com.kyle.luckyfivetest.databinding.FragmentProductBinding
 import com.kyle.luckyfivetest.ui.base.BaseFragment
 import com.kyle.luckyfivetest.utils.GridSpacingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-
 
 @AndroidEntryPoint
 class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>() {
@@ -34,15 +30,13 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>()
             )
         }
 
+        collectLatestStateFlow(viewModel.products) {
+            recyclerViewAdapter.submitData(it)
+        }
+
         recyclerViewAdapter.setOnItemClickListener { view, productEntity, _ ->
             val action = ProductFragmentDirections.actionProductFragmentToDetailFragment(productEntity.productId)
             view.findNavController().navigate(action)
-        }
-
-        lifecycleScope.launch {
-            viewModel.products.collectLatest {
-                recyclerViewAdapter.submitData(it)
-            }
         }
     }
 }

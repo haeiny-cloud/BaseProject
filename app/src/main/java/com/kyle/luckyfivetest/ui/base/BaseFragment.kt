@@ -8,7 +8,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.kyle.luckyfivetest.BR
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragment() {
 
@@ -48,6 +54,14 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>() : Fragmen
 
     fun getBaseActivity(): BaseActivity<*, *>? {
         return mActivity
+    }
+
+    fun <T> Fragment.collectLatestStateFlow(flow: Flow<T>, collector: suspend (T) -> Unit) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                flow.collectLatest(collector)
+            }
+        }
     }
 
     override fun onDetach() {
