@@ -56,8 +56,7 @@
         <action
             android:id="@+id/action_boxResultFragment_to_boxOpenFragment"
             app:destination="@id/boxOpenFragment"
-            app:popUpTo="@id/boxOpenFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@id/luckyBoxFragment" />
         <action
             android:id="@+id/action_boxResultFragment_to_luckyBoxFragment"
             app:destination="@id/luckyBoxFragment"
@@ -72,7 +71,8 @@
         tools:layout="@layout/fragment_box_open">
         <action
             android:id="@+id/action_boxOpenFragment_to_boxResultFragment"
-            app:destination="@id/boxResultFragment" />
+            app:destination="@id/boxResultFragment"
+            app:popUpTo="@id/luckyBoxFragment" />
     </fragment>
     <fragment
         android:id="@+id/usersFragment"

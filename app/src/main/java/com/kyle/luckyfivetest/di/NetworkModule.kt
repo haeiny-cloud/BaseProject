@@ -1,6 +1,7 @@
 package com.kyle.luckyfivetest.di
 
 import com.kyle.luckyfivetest.BuildConfig
+import com.kyle.luckyfivetest.data.remote.api.UserPagingSource
 import com.kyle.luckyfivetest.data.remote.api.UserService
 import dagger.Module
 import dagger.Provides
@@ -16,6 +17,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
+    @Provides
+    @Singleton
+    fun providesUserPagingSource(userService: UserService): UserPagingSource {
+        return UserPagingSource(userService)
+    }
 
     @Provides
     @Singleton

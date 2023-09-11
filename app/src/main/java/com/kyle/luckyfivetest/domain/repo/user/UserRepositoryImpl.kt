@@ -18,7 +18,7 @@ class UserRepositoryImpl @Inject constructor(
             config = PagingConfig(
                 pageSize = 5,
                 enablePlaceholders = false,
-                maxSize = 5*3
+                maxSize = 5 * 3
             ),
             pagingSourceFactory = pagingSourceFactory
         ).flow
