@@ -17,8 +17,8 @@
         <ImageView
             android:id="@+id/avatar"
             imageUrl="@{item.avatar}"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:src="@drawable/ic_action_close"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>

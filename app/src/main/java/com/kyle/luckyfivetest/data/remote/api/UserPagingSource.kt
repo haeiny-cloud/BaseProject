@@ -26,8 +26,9 @@ class UserPagingSource @Inject constructor(
             val pageNumber = params.key ?: STARTING_PAGE_INDEX
 
             val response = api.getUsers(
-                    page = pageNumber,
-                ).awaitResponse().body()
+                page = pageNumber,
+                perPage = 5
+            ).awaitResponse().body()
 
             val endOfPaginationReached = response?.data?.isEmpty()
 
