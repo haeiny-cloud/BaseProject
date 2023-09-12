@@ -6,10 +6,7 @@ import com.kyle.luckyfivetest.data.remote.model.User
 import com.kyle.luckyfivetest.databinding.ItemUsersBinding
 import com.kyle.luckyfivetest.ui.base.BaseRecyclerViewAdapter
 
-class UsersRecyclerViewAdapter() : BaseRecyclerViewAdapter<User, ItemUsersBinding>(UserDiffUtil) {
-    override fun bindItemToViewHolder(item: User, binding: ItemUsersBinding) {
-        binding.item = item
-    }
+class UsersRecyclerViewAdapter : BaseRecyclerViewAdapter<User, ItemUsersBinding>(UserDiffUtil) {
 
     object UserDiffUtil : DiffUtil.ItemCallback<User>() {
         override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {

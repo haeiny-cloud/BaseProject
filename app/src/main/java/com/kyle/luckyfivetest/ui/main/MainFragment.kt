@@ -18,7 +18,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override val fragment: String = "MainFragment"
 
     override fun onCreate() {
-        mViewDataBinding.btn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.productFragment, null))
+        mViewDataBinding.btn.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_mainFragment_to_productFragment))
 
         mViewDataBinding.add.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {

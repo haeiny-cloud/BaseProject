@@ -1,5 +1,7 @@
 package com.kyle.luckyfivetest.ui
 
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -10,6 +12,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import androidx.transition.Fade
+import androidx.transition.TransitionManager
 import com.kyle.luckyfivetest.R
 import com.kyle.luckyfivetest.databinding.ActivityMainBinding
 import com.kyle.luckyfivetest.ui.base.BaseActivity
@@ -42,19 +46,22 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
         navController = navHostFragment.navController
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            TransitionManager.beginDelayedTransition(mViewDataBinding.bottomNav, Fade())
             mViewDataBinding.drawerLayout.closeDrawers()
 
-            when (destination.id) {
-                R.id.mainFragment, R.id.luckyBoxFragment -> {
-                    mViewDataBinding.defaultToolbar.visibility = View.VISIBLE
-                    mViewDataBinding.backstackToolbar.visibility = View.GONE
-                    mViewDataBinding.bottomNav.visibility = View.VISIBLE
-                }
+            Handler(Looper.getMainLooper()).post {
+                when (destination.id) {
+                    R.id.mainFragment, R.id.luckyBoxFragment -> {
+                        mViewDataBinding.defaultToolbar.visibility = View.VISIBLE
+                        mViewDataBinding.backstackToolbar.visibility = View.GONE
+                        mViewDataBinding.bottomNav.visibility = View.VISIBLE
+                    }
 
-                else -> {
-                    mViewDataBinding.defaultToolbar.visibility = View.GONE
-                    mViewDataBinding.backstackToolbar.visibility = View.VISIBLE
-                    mViewDataBinding.bottomNav.visibility = View.GONE
+                    else -> {
+                        mViewDataBinding.defaultToolbar.visibility = View.GONE
+                        mViewDataBinding.backstackToolbar.visibility = View.VISIBLE
+                        mViewDataBinding.bottomNav.visibility = View.GONE
+                    }
                 }
             }
         }
@@ -104,6 +111,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
     override fun onFragmentViewCreated(fragment: String) {
         super.onFragmentViewCreated(fragment)
         viewModel.changeTitle(fragment)
+
     }
 
     // DrawerView 설정 및 초기화 시작

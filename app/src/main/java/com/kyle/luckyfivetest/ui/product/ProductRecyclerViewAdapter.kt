@@ -7,9 +7,6 @@ import com.kyle.luckyfivetest.databinding.ItemProductMainBinding
 import com.kyle.luckyfivetest.ui.base.BaseRecyclerViewAdapter
 
 class ProductRecyclerViewAdapter : BaseRecyclerViewAdapter<ProductEntity, ItemProductMainBinding>(ProductDiffUtil) {
-    override fun bindItemToViewHolder(item: ProductEntity, binding: ItemProductMainBinding) {
-        binding.item = item
-    }
 
     object ProductDiffUtil : DiffUtil.ItemCallback<ProductEntity>() {
         override fun areItemsTheSame(oldItem: ProductEntity, newItem: ProductEntity): Boolean {
