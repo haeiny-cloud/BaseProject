@@ -2,6 +2,7 @@ package com.kyle.luckyfivetest.ui
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -16,6 +17,7 @@ import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.kyle.luckyfivetest.R
 import com.kyle.luckyfivetest.databinding.ActivityMainBinding
+import com.kyle.luckyfivetest.noti.MyFirebaseMessagingService
 import com.kyle.luckyfivetest.ui.base.BaseActivity
 import com.kyle.luckyfivetest.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +34,21 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
         initDefaultToolbar()
         initBackstackToolbar()
         initDrawerViewAndEvents()
+
+        MyFirebaseMessagingService().getFirebaseToken()
+        initDynamicLink()
+    }
+
+    private fun initDynamicLink() {
+        val dynamicLinkData = intent.extras
+        if (dynamicLinkData != null) {
+            var dataStr = "DynamicLink 수신받은 값\n"
+            for (key in dynamicLinkData.keySet()) {
+                dataStr += "key: $key / value: ${dynamicLinkData.getString(key)}\n"
+            }
+
+            Log.d("TAG", dataStr)
+        }
     }
 
     private fun initNavigationEvents() {
