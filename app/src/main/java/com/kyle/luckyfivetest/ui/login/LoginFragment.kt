@@ -3,7 +3,7 @@ package com.kyle.luckyfivetest.ui.login
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -32,15 +32,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
             Log.d("TAG", "userName: $userName")
             Log.d("TAG", "authCode: $serverAuth")
 
+            moveMainFragment()
+
         } catch (e: ApiException) {
             Log.e(LoginFragment::class.java.simpleName, e.stackTraceToString())
         }
     }
 
     private fun moveMainFragment() {
-        Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_mainFragment)
-
-        Log.d("TAG", "move")
+        view?.findNavController()?.navigate(R.id.action_loginFragment_to_mainFragment)
     }
 
     override fun onCreate() {
