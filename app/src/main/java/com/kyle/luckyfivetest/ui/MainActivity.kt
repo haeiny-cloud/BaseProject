@@ -11,7 +11,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
@@ -52,13 +51,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
     }
 
     private fun initNavigationEvents() {
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.mainFragment,
-                R.id.luckyBoxFragment,
-            )
-        )
-
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         navController = navHostFragment.navController
 
@@ -96,7 +88,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
         mViewDataBinding.defaultToolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.item1 -> {
-                    Toast.makeText(this@MainActivity, "item1 clicked", Toast.LENGTH_SHORT).show()
+                    navController.navigate(R.id.loginFragment)
                     return@setOnMenuItemClickListener true
                 }
 

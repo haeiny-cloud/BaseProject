@@ -79,4 +79,15 @@
         android:name="com.kyle.luckyfivetest.ui.users.UsersFragment"
         android:label="UsersFragment"
         tools:layout="@layout/fragment_users"/>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.kyle.luckyfivetest.ui.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

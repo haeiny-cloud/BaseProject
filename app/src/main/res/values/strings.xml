@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">LuckyFiveTest</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="intToString">%d</string>
+    <string name="webClientId">618663234815-5oo37isoife6cohaa1lqd8tbg41m7dq5.apps.googleusercontent.com</string>
+    <string name="androidClientId">618663234815-7d72eqflc7h2angd4bmf72s3ol2p9oo1.apps.googleusercontent.com</string>
 </resources>

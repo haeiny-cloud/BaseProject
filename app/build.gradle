@@ -78,7 +78,7 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.6.1'
 
     // paging3
-    implementation "androidx.paging:paging-runtime:3.2.0"
+    implementation "androidx.paging:paging-runtime:3.2.1"
     implementation 'androidx.room:room-paging:2.5.2'
 
     // glide
@@ -104,4 +104,12 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.firebase:firebase-auth:22.1.1'
+
+    // Google play service
+    implementation 'com.google.gms:google-services:4.3.15'
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
+
+    // circle image view
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
 }
