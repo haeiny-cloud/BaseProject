@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.transition.Fade
 import androidx.transition.TransitionManager
+import com.kakao.sdk.common.KakaoSdk
 import com.kyle.luckyfivetest.R
 import com.kyle.luckyfivetest.databinding.ActivityMainBinding
 import com.kyle.luckyfivetest.noti.MyFirebaseMessagingService
@@ -36,6 +37,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
 
         MyFirebaseMessagingService().getFirebaseToken()
         initDynamicLink()
+
+        KakaoSdk.init(this, getString(R.string.NATIVE_APP_KEY))
     }
 
     private fun initDynamicLink() {

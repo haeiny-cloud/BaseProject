@@ -4,4 +4,5 @@
     <string name="intToString">%d</string>
     <string name="webClientId">618663234815-5oo37isoife6cohaa1lqd8tbg41m7dq5.apps.googleusercontent.com</string>
     <string name="androidClientId">618663234815-7d72eqflc7h2angd4bmf72s3ol2p9oo1.apps.googleusercontent.com</string>
+    <string name="NATIVE_APP_KEY">8c963bcc6c2635338101702e05a575f8</string>
 </resources>
