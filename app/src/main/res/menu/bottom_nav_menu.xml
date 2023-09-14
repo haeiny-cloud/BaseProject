@@ -5,15 +5,15 @@
         android:id="@+id/mainFragment"
         android:title="main"
         android:enabled="true"
-        android:icon="@mipmap/ic_launcher"/>
+        android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/luckyBoxFragment"
         android:title="lucky"
         android:enabled="true"
-        android:icon="@mipmap/ic_launcher"/>
+        android:icon="@drawable/ic_lucky"/>
     <item
         android:id="@+id/usersFragment"
         android:title="users"
         android:enabled="true"
-        android:icon="@drawable/ic_action_close"/>
+        android:icon="@drawable/ic_users"/>
 </menu>

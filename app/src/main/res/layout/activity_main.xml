@@ -28,11 +28,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.Toolbar
+                <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/default_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
+                    android:background="@color/white"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
@@ -40,7 +40,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_launcher_foreground"
+                        android:src="@mipmap/ic_launcher"
                         android:visibility="@{!vm.titleVisibility}" />
 
                     <TextView
@@ -50,13 +50,13 @@
                         android:layout_gravity="center"
                         android:text="@{vm.title}"
                         android:visibility="@{vm.titleVisibility}" />
-                </androidx.appcompat.widget.Toolbar>
+                </com.google.android.material.appbar.MaterialToolbar>
 
-                <androidx.appcompat.widget.Toolbar
+                <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/backstack_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
+                    android:background="@color/white"
                     android:visibility="gone"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -67,7 +67,7 @@
                         android:layout_gravity="center"
                         android:text="@{vm.title}"
                         android:visibility="@{vm.titleVisibility}" />
-                </androidx.appcompat.widget.Toolbar>
+                </com.google.android.material.appbar.MaterialToolbar>
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/nav_host"
@@ -100,7 +100,7 @@
                 android:layout_marginEnd="-64dp"
                 android:fitsSystemWindows="true"
                 app:headerLayout="@layout/navigation_left_drawer_header"
-                app:menu="@menu/bottom_nav_menu" />
+                app:menu="@menu/navigation_drawer_menu" />
 
         </androidx.drawerlayout.widget.DrawerLayout>
 
