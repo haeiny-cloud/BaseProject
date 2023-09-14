@@ -26,7 +26,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
 
     override val layoutId: Int = R.layout.activity_main
     override val viewModel: MainViewModel by viewModels()
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
 
     override fun setUp() {
         initNavigationEvents()
@@ -76,7 +76,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
         }
 
         mViewDataBinding.bottomNav.setupWithNavController(navController)
-        mViewDataBinding.navigationView.setupWithNavController(navController)
     }
 
     // Toolbar 설정 및 초기화 시작
@@ -127,6 +126,31 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), BaseFra
 
     private fun initDrawerViewAndEvents() {
         mViewDataBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
+        mViewDataBinding.navigationView.setNavigationItemSelectedListener {
+            mViewDataBinding.drawerLayout.closeDrawers()
+
+            when (it.itemId) {
+                R.id.item1 -> {
+                    Toast.makeText(this@MainActivity, "item1 clicked", Toast.LENGTH_SHORT).show()
+                    return@setNavigationItemSelectedListener true
+                }
+
+                R.id.item2 -> {
+                    Toast.makeText(this@MainActivity, "item2 clicked", Toast.LENGTH_SHORT).show()
+                    return@setNavigationItemSelectedListener true
+                }
+
+                R.id.item3 -> {
+                    Toast.makeText(this@MainActivity, "item3 clicked", Toast.LENGTH_SHORT).show()
+                    return@setNavigationItemSelectedListener true
+                }
+
+                else -> {
+                    return@setNavigationItemSelectedListener false
+                }
+            }
+        }
 
         val headerView = mViewDataBinding.navigationView.getHeaderView(0)
         val btnClose = headerView.findViewById<ImageView>(R.id.btn_close)

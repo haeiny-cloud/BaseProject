@@ -115,4 +115,7 @@ dependencies {
 
     // kakao
     implementation 'com.kakao.sdk:v2-user:2.10.0'
+
+    // naver
+    implementation 'com.navercorp.nid:oauth:5.7.0'
 }
